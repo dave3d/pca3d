@@ -1,0 +1,53 @@
+
+  <Transform scale='10 10 10'>
+      <!-- Vertical Y arrow and label -->
+      <Group DEF='ArrowGreen'>
+        <Shape>
+          <Appearance DEF='Green'>
+            <Material diffuseColor='.1 .6 .1' emissiveColor='.05 .2 .05'/>
+          </Appearance>
+          <Cylinder DEF='ArrowCylinder' radius='.025' top='false'/>
+        </Shape>
+        <Transform translation='0 1 0'>
+          <Shape>
+            <Appearance USE='Green'/></Appearance>
+            <Cone DEF='ArrowCone' bottomRadius='.05' height='.1'/>
+          </Shape>
+        </Transform>
+      </Group>
+    <Transform rotation='0 0 1 -1.57079'>
+      <!-- Horizontal X arrow and label -->
+        <Group DEF='ArrowRed'>
+          <Shape>
+            <Appearance DEF='Red'>
+              <Material diffuseColor='.7 .1 .1' emissiveColor='.33 0 0'/>
+            </Appearance>
+            <Cylinder USE='ArrowCylinder'/>
+          </Shape>
+          <Transform translation='0 1 0'>
+            <Shape>
+              <Appearance USE='Red'/></Appearance>
+              <Cone USE='ArrowCone'/>
+            </Shape>
+          </Transform>
+        </Group>
+    </Transform>
+    <Transform rotation='1 0 0 1.57079'>
+      <!-- Perpendicular Z arrow and label, note right-hand rule -->
+        <Group DEF='ArrowBlue'>
+          <Shape>
+            <Appearance DEF='Blue'>
+              <Material diffuseColor='.3 .3 1' emissiveColor='.1 .1 .33'/>
+            </Appearance>
+            <Cylinder USE='ArrowCylinder'/>
+          </Shape>
+          <Transform translation='0 1 0'>
+            <Shape>
+              <Appearance USE='Blue'/></Appearance>
+              <Cone USE='ArrowCone'/>
+            </Shape>
+          </Transform>
+        </Group>
+    </Transform>
+  </Transform>
+
