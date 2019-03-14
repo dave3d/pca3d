@@ -1,22 +1,27 @@
 #! /usr/bin/env python
 
 import sys, getopt
+import re
 
 outname = ""
 title = "X3Dom test page"
+
+replacement_dict = {}
 
 def usage():
   print ("")
   print ("x3d2html.py [options] input_file1 ... input_fileN")
   print (" -t title    Title of the page")
   print (" -o name     Output file name")
+  print (" -r 'string1:string2'  Replace string in input file")
+  print (" -d 'replacement dictionary'  Python dictionary with replacement string pairs")
   print (" -h, --help  This help page")
   print ("")
 
 
 try:
-  opts, args = getopt.getopt( sys.argv[1:], "ht:o:",
-            [ "help", "title=", "output=", ] )
+  opts, args = getopt.getopt( sys.argv[1:], "ht:o:r:d:",
+            [ "help", "title=", "output=", "replace=", "dict="] )
 except getopt.GetoptError as err:
   print (str(err))
   usage()
@@ -31,6 +36,13 @@ for o, a in opts:
     title = a
   elif o in ("-o", "--output"):
     outname = a
+  elif o in ("-r", "--replace"):
+    words = a.split(':')
+    if len(words) == 2:
+      replacement_dict[words[0]] = words[1]
+  elif o in ("-d", "--dict"):
+    dict1 = eval(a)
+    replacement_dict.update(dict1)
   else:
     assert False, "unhandled option"
 
@@ -51,6 +63,13 @@ if outname == "":
     outname = firstname + ".html"
 
 print (innames, outname)
+
+print("Replacement dictionary:" + str(replacement_dict))
+
+# https://gist.github.com/bgusach/a967e0587d6e01e889fd1d776c5f3729
+substrs = sorted(replacement_dict, key=len, reverse=True)
+regexp = re.compile('|'.join(map(re.escape, substrs)))
+
 
 fout = open(outname, "w")
 
@@ -79,7 +98,8 @@ for i in innames:
   print (i)
   fin = open(i, "r")
   for line in fin:
-    fout.write(line)
+    line1  = regexp.sub(lambda match: replacement_dict[match.group(0)], line)
+    fout.write(line1)
 
   fin.close()
 
