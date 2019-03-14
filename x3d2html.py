@@ -114,6 +114,11 @@ for i in innames:
 fout.write("\n  </scene>\n")
 fout.write("</x3d>\n")
 
+from datetime import datetime
+fout.write("<p>\n")
+fout.write("Generated " + datetime.now().strftime('%Y-%m-%d %H:%M:%S') + "\n" )
+fout.write("<p>\n")
+
 fout.write("   </body>\n")
 fout.write("</html>\n")
 
