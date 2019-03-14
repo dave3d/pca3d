@@ -74,6 +74,8 @@ regexp = re.compile('|'.join(map(re.escape, substrs)))
 fout = open(outname, "w")
 
 
+# Write header
+#
 fout.write("<html>\n")
 fout.write("   <head>\n")
 fout.write("    <meta http-equiv='X-UA-Compatible' content='IE=edge'/>\n")
@@ -94,18 +96,25 @@ fout.write("  <background groundColor='.4 .4 .4' skyColor='.6 .6 1'> </backgroun
 fout.write("  <FontStyle DEF='testFontStyle' justify='\"MIDDLE\" \"MIDDLE\"' size='1.5'></FontStyle>\n")
 
 
+#  Copy each input X3D file
+#
 for i in innames:
   print (i)
   fin = open(i, "r")
+  fout.write("\n<!-- X3D file " + i + " -->\n")
   for line in fin:
     line1  = regexp.sub(lambda match: replacement_dict[match.group(0)], line)
     fout.write(line1)
 
   fin.close()
 
-fout.write("  </scene>\n")
+
+# Write the tail
+#
+fout.write("\n  </scene>\n")
 fout.write("</x3d>\n")
 
 fout.write("   </body>\n")
 fout.write("</html>\n")
 
+fout.close()
