@@ -7,7 +7,7 @@ title = "X3Dom test page"
 
 def usage():
   print ("")
-  print ("x3d2html.py [options] input_file")
+  print ("x3d2html.py [options] input_file1 ... input_fileN")
   print (" -t title    Title of the page")
   print (" -o name     Output file name")
   print (" -h, --help  This help page")
@@ -15,7 +15,7 @@ def usage():
 
 
 try:
-  opts, args = getopt.getopt( sys.argv[1:], "ht:o",
+  opts, args = getopt.getopt( sys.argv[1:], "ht:o:",
             [ "help", "title=", "output=", ] )
 except getopt.GetoptError as err:
   print (str(err))
@@ -23,16 +23,16 @@ except getopt.GetoptError as err:
   sys.exit(1)
 
 
-  for o, a in opts:
-    if o in ("-h", "--help"):
-      usage()
-      sys.exit()
-    elif o in ("-t", "--title"):
-      title = a
-    elif o in ("-o", "--output"):
-      outname = a
-    else:
-      assert False, "unhandled option"
+for o, a in opts:
+  if o in ("-h", "--help"):
+    usage()
+    sys.exit()
+  elif o in ("-t", "--title"):
+    title = a
+  elif o in ("-o", "--output"):
+    outname = a
+  else:
+    assert False, "unhandled option"
 
 
 if len(sys.argv)<2:
@@ -40,14 +40,17 @@ if len(sys.argv)<2:
   sys.exit(1)
 
 
-inname = sys.argv[1]
+innames = args
 
-if inname.endswith(".x3d"):
-  outname = inname[:-4] + ".html"
-else:
-  outname = inname + ".html"
+firstname = innames[0]
 
-print (inname, outname)
+if outname == "":
+  if firstname.endswith(".x3d"):
+    outname = firstname[:-4] + ".html"
+  else:
+    outname = firstname + ".html"
+
+print (innames, outname)
 
 fout = open(outname, "w")
 
@@ -72,11 +75,13 @@ fout.write("  <background groundColor='.4 .4 .4' skyColor='.6 .6 1'> </backgroun
 fout.write("  <FontStyle DEF='testFontStyle' justify='\"MIDDLE\" \"MIDDLE\"' size='1.5'></FontStyle>\n")
 
 
-fin = open(inname, "r")
-for line in fin:
-  fout.write(line)
+for i in innames:
+  print (i)
+  fin = open(i, "r")
+  for line in fin:
+    fout.write(line)
 
-fin.close()
+  fin.close()
 
 fout.write("  </scene>\n")
 fout.write("</x3d>\n")
