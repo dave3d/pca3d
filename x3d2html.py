@@ -86,6 +86,11 @@ fout.write("   </head>\n")
 fout.write("   <body>\n")
 fout.write("     <h1>" + title + "</h1>\n")
 
+from datetime import datetime
+fout.write("     <p>\n")
+fout.write("<small>Generated " + datetime.now().strftime('%Y-%m-%d %H:%M:%S') + "</small>\n" )
+fout.write("<p>\n")
+
 fout.write("<x3d width='1000px' height='800px'>\n")
 
 
@@ -114,10 +119,6 @@ for i in innames:
 fout.write("\n  </scene>\n")
 fout.write("</x3d>\n")
 
-from datetime import datetime
-fout.write("<p>\n")
-fout.write("Generated " + datetime.now().strftime('%Y-%m-%d %H:%M:%S') + "\n" )
-fout.write("<p>\n")
 
 fout.write("   </body>\n")
 fout.write("</html>\n")
