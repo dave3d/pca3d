@@ -3,6 +3,18 @@
 import sys, getopt
 import re
 
+#
+#  This script takes one or more X3D files and wraps them in a HTML file.
+#  I need to do this to avoid the <inline> tag.  Browsers won't load inlined
+#  files for a local HTML file.  It works find for pages downloaded from
+#  a web server, but not locally loaded pages.
+#
+#  The script includes a replacement dictionary.  This allows the user to
+#  globally replace one keyword with another in all X3D files.  In my
+#  case I'm using it to replace the XAXIS text object with a data field's
+#  name.
+#
+
 outname = ""
 title = "X3Dom test page"
 
