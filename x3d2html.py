@@ -67,6 +67,7 @@ print (innames, outname)
 print("Replacement dictionary:" + str(replacement_dict))
 
 # https://gist.github.com/bgusach/a967e0587d6e01e889fd1d776c5f3729
+
 substrs = sorted(replacement_dict, key=len, reverse=True)
 regexp = re.compile('|'.join(map(re.escape, substrs)))
 
@@ -107,9 +108,15 @@ for i in innames:
   print (i)
   fin = open(i, "r")
   fout.write("\n<!-- X3D file " + i + " -->\n")
-  for line in fin:
-    line1  = regexp.sub(lambda match: replacement_dict[match.group(0)], line)
-    fout.write(line1)
+
+  if len(replacement_dict):
+    for line in fin:
+      line1  = regexp.sub(lambda match: replacement_dict[match.group(0)], line)
+      fout.write(line1)
+
+  else:
+    for line in fin:
+      fout.write(line)
 
   fin.close()
 
