@@ -10,7 +10,7 @@
         </Shape>
         <Transform translation='0 1 0'>
           <Shape>
-            <Appearance USE='Green'/></Appearance>
+            <Appearance USE='Green'></Appearance>
             <Cone DEF='ArrowCone' bottomRadius='.05' height='.1'/>
           </Shape>
         </Transform>
@@ -26,7 +26,7 @@
           </Shape>
           <Transform translation='0 1 0'>
             <Shape>
-              <Appearance USE='Red'/></Appearance>
+              <Appearance USE='Red'></Appearance>
               <Cone USE='ArrowCone'/>
             </Shape>
           </Transform>
@@ -43,7 +43,7 @@
           </Shape>
           <Transform translation='0 1 0'>
             <Shape>
-              <Appearance USE='Blue'/></Appearance>
+              <Appearance USE='Blue'></Appearance>
               <Cone USE='ArrowCone'/>
             </Shape>
           </Transform>
