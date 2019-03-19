@@ -1,0 +1,38 @@
+
+<Scene>
+<Transform DEF='FourEdges'>
+<Transform translation='-1 0 -1'>
+  <Shape DEF='YCylinder'>
+    <Appearance>
+      <Material diffuseColor='.8 .1 .1' emissiveColor='.2 .05 .05'></Material>
+    </Appearance>
+    <Cylinder radius='.025'></Cylinder>
+  </Shape>
+</Transform>
+<Transform translation='1 0 -1'>
+  <Shape USE='YCylinder'>
+  </Shape>
+</Transform>
+<Transform translation='1 0 1'>
+  <Shape USE='YCylinder'>
+  </Shape>
+</Transform>
+<Transform translation='-1 0 1'>
+  <Shape USE='YCylinder'>
+  </Shape>
+</Transform>
+
+</Transform>
+
+<Transform rotation='0 0 1 -1.57079'>
+  <Shape USE='FourEdges'>
+    <Appearance>
+      <Material diffuseColor='.6 .1 .1' emissiveColor='.2 .05 .05'></Material>
+    </Appearance>
+  </Shape>
+</Transform>
+<Transform rotation='1 0 0 1.57079'>
+  <Shape USE='FourEdges' render='false'/>
+</Transform>
+
+</Scene>

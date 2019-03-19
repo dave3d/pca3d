@@ -1,0 +1,60 @@
+#VRML V2.0 utf8
+
+DEF FourEdges Transform {
+  scale 100 100 100
+  render FALSE
+  children [
+    Transform {
+      translation -1 0 -1
+      children [
+        DEF YCylinder Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor 0.8 0.8 0.8
+              emissiveColor 0.2 0.2 0.2
+            }
+          }
+          geometry Cylinder {
+            radius 0.025
+          }
+        }
+      ]
+    }
+    Transform {
+      translation 1 0 -1
+      children [
+        USE YCylinder
+      ]
+    }
+    Transform {
+      translation 1 0 1
+      children [
+        USE YCylinder
+      ]
+    }
+    Transform {
+      translation -1 0 1
+      children [
+        USE YCylinder
+      ]
+    }
+    Appearance {
+      material Material {
+        diffuseColor 0.6 0.1 0.1
+        emissiveColor 0.2 0.05 0.05
+      }
+    }
+  ]
+}
+Transform {
+  rotation 0 0 1 -1.57079
+  children [
+    USE FourEdges
+  ]
+}
+Transform {
+  rotation 1 0 0 1.57079
+  children [
+    USE FourEdges
+  ]
+}
