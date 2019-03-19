@@ -18,6 +18,8 @@ import re
 outname = ""
 title = "X3Dom test page"
 
+no_html = False
+
 replacement_dict = {}
 
 def usage():
@@ -28,12 +30,13 @@ def usage():
   print (" -r 'string1:string2'  Replace string in input file")
   print (" -d 'replacement dictionary'  Python dictionary with replacement string pairs")
   print (" -h, --help  This help page")
+  print (" -x, --x3d   Only output the X3D section (omit the enclosing html)")
   print ("")
 
 
 try:
-  opts, args = getopt.getopt( sys.argv[1:], "ht:o:r:d:",
-            [ "help", "title=", "output=", "replace=", "dict="] )
+  opts, args = getopt.getopt( sys.argv[1:], "ht:o:r:d:x",
+            [ "help", "title=", "output=", "replace=", "dict=", "x3d"] )
 except getopt.GetoptError as err:
   print (str(err))
   usage()
@@ -52,6 +55,8 @@ for o, a in opts:
     words = a.split(':')
     if len(words) == 2:
       replacement_dict[words[0]] = words[1]
+  elif o in ("-x", "--x3d"):
+    no_html = True
   elif o in ("-d", "--dict"):
     dict1 = eval(a)
     replacement_dict.update(dict1)
@@ -89,23 +94,23 @@ fout = open(outname, "w")
 
 # Write header
 #
-fout.write("<html>\n")
-fout.write("   <head>\n")
-fout.write("    <meta http-equiv='X-UA-Compatible' content='IE=edge'/>\n")
-fout.write("     <title>" + title + "</title>\n")
-fout.write("     <script type='text/javascript' src='https://www.x3dom.org/download/x3dom.js'> </script>\n")
-fout.write("     <link rel='stylesheet' type='text/css' href='https://www.x3dom.org/download/x3dom.css'></link>\n")
-fout.write("   </head>\n")
-fout.write("   <body>\n")
-fout.write("     <h1>" + title + "</h1>\n")
+if not no_html:
+  fout.write("<html>\n")
+  fout.write("   <head>\n")
+  fout.write("    <meta http-equiv='X-UA-Compatible' content='IE=edge'/>\n")
+  fout.write("     <title>" + title + "</title>\n")
+  fout.write("     <script type='text/javascript' src='https://www.x3dom.org/download/x3dom.js'> </script>\n")
+  fout.write("     <link rel='stylesheet' type='text/css' href='https://www.x3dom.org/download/x3dom.css'></link>\n")
+  fout.write("   </head>\n")
+  fout.write("   <body>\n")
+  fout.write("     <h1>" + title + "</h1>\n")
 
-from datetime import datetime
-fout.write("     <p>\n")
-fout.write("<small>Generated " + datetime.now().strftime('%Y-%m-%d %H:%M:%S') + "</small>\n" )
-fout.write("<p>\n")
+  from datetime import datetime
+  fout.write("     <p>\n")
+  fout.write("<small>Generated " + datetime.now().strftime('%Y-%m-%d %H:%M:%S') + "</small>\n" )
+  fout.write("<p>\n")
 
-fout.write("<x3d width='1000px' height='800px'>\n")
-
+fout.write("<x3d  profile='Full' version='3.3' xmlns:xsd='http://www.w3.org/2001/XMLSchema-instance' xsd:noNamespaceSchemaLocation='http://www.web3d.org/specifications/x3d-3.3.xsd' width='1000px' height='800px'>\n")
 
 fout.write("<scene>\n")
 
@@ -139,7 +144,8 @@ fout.write("\n  </scene>\n")
 fout.write("</x3d>\n")
 
 
-fout.write("   </body>\n")
-fout.write("</html>\n")
+if not no_html:
+  fout.write("   </body>\n")
+  fout.write("</html>\n")
 
 fout.close()
