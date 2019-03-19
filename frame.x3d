@@ -1,5 +1,5 @@
 
-<Group>
+<Scene>
   <Transform scale='100 100 100'>
 
     <Shape>
@@ -41,5 +41,5 @@
       </Shape>
     </Transform>
 
-</Group>
+</Scene>
 
