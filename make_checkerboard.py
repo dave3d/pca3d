@@ -4,6 +4,8 @@ import sys, os, getopt
 import base64
 import SimpleITK as sitk
 
+import file2base64
+
 debugFlag = False
 
 def make_checkerboard(size=[128,128], pattern_size=16, stripe_flag=False, url_flag=False, color=[]):
@@ -34,19 +36,12 @@ def make_checkerboard(size=[128,128], pattern_size=16, stripe_flag=False, url_fl
       img = sitk.Compose(rimg, gimg, bimg)
 
 
-
   sitk.WriteImage(img, "checker_tmp.png")
-  png_buffer = open('checker_tmp.png', 'rb').read()
 
-  b64_img = base64.b64encode(png_buffer).decode("utf-8")
+  result = file2base64.file2base64("checker_tmp.png", url_flag)
 
   if not debugFlag:
     os.remove("checker_tmp.png")
-
-  if url_flag:
-    result = "url=\'data:image/png;base64," + str(b64_img) + "\'"
-  else:
-    result = b64_img
 
   return result
 
