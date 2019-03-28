@@ -29,9 +29,20 @@ def rotate_vector(v, rotation):
   #not yet implemented
   return v
 
-def transform_obj(obj, translate=[0.0,0.0,0.0], scale=[1.0,1.0,1.0], rotate=[0.0,0.0,0.0,0.0], mtllib="", material=""):
+#
+#  Transform a Wavefront OBJ file.  The input of the function, obj, is a list of strings
+#  which are the OBJ file.  The mtllib and material allow the user to add or override
+#  a material file or material use in the file.
+#
+def transform_obj( obj, translate=[0.0,0.0,0.0], scale=[1.0,1.0,1.0], rotate=[0.0,0.0,0.0,0.0], mtllib="",
+                   material="" ):
 
   result = []
+
+  if mtllib != "":
+    result.append("mtllib " + mtllib + "\n")
+  if material != "":
+    result.append("usemtl " + material + "\n")
 
   for l in obj:
     words = l.split()
@@ -53,17 +64,15 @@ def transform_obj(obj, translate=[0.0,0.0,0.0], scale=[1.0,1.0,1.0], rotate=[0.0
 
 
     elif words[0] == 'mttlib':
-      # change the material library used
-      if mtllib != "":
-        result.append("mtllib " + mtllib + "\n")
-      else:
+      if mtllib == "":
+        # if the function as given no mtllib, let the file's mtllib pass through.
+        # if the function was given a mtllib, the file's mtllib is omitted.
         result.append(l)
 
     elif words[0] == 'usemtl':
-      # change the material used
-      if material != "":
-        result.append("usemtl " + material + "\n")
-      else:
+      if material = "":
+        # if the function as given no material, let the file's material pass through.
+        # if the function was given a material, the file's material is omitted.
         result.append(l)
 
     elif words[0] == 'vn':
@@ -109,8 +118,8 @@ if __name__ == '__main__':
   inname = 'myobj.obj'
   outname = ""
 
-  tlate = [1., 2., 3.]
-  scale = [2., 1., 1.]
+  tlate = [0., 0., 0.]
+  scale = [1., 1., 1.]
   rotate = []
 
   mtllib = ""
