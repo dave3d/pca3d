@@ -46,7 +46,7 @@ def transform_obj( obj, translate=[0.0,0.0,0.0], scale=[1.0,1.0,1.0], rotate=[0.
 
   for l in obj:
     words = l.split()
-    print (words)
+#    print (words)
 
     if len(words) == 0:
       continue
@@ -93,7 +93,9 @@ def transform_obj( obj, translate=[0.0,0.0,0.0], scale=[1.0,1.0,1.0], rotate=[0.
 def transform_obj_file( inname, outname, translate=[0.0,0.0,0.0], scale=[1.0,1.0,1.0], rotate=[0.0,0.0,0.0,0.0], mtllib="",
                         material=""):
 
-  inobj = open(inname, 'r')
+  with open(inname, 'r') as f:
+    inobj = f.read().splitlines()
+
   outobj = transform_obj(inobj, translate, scale, rotate, mtllib, material)
   inobj.close()
 
@@ -113,6 +115,7 @@ def usage():
   print(" -r 'x y z a' Rotate")
   print(" -l string    Material library file")
   print(" -m string    Material name")
+
 
 if __name__ == '__main__':
   inname = 'myobj.obj'

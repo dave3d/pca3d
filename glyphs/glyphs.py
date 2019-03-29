@@ -6,11 +6,16 @@ glyphs = {}
 glyph_dir = '/Users/dchen/pca3d/glyphs'
 
 def load_glyphs():
-  box_obj = open(glyph_dir + "/cube.obj", 'r')
+
+  with open(glyph_dir + "/cube.obj", 'r') as box_file:
+    box_obj = box_file.read().splitlines()
+
+  print(box_obj)
 
   glyphs['Box'] = box_obj
 
-  sphere_obj = open(glyph_dir + "/sphere-tex.obj", 'r')
+  with open(glyph_dir + "/sphere-tex.obj", 'r') as sphere_file:
+    sphere_obj = sphere_file.read().splitlines()
 
   glyphs['Sphere'] = sphere_obj
 
