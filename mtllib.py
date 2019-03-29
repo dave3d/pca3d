@@ -13,7 +13,7 @@ def make_mtllib( file_name, material_name, texture_name="", color=[1., 1., 1.] )
     fmtl.write("newmtl " + material_name + "\n")
 
     fmtl.write("Ka 1.0 1.0 1.0\n")
-    if len(color) == 3:
+    if len(color) >= 3:
       fmtl.write( "Kd {0:.3g} {1:.3g} {2:.3g}\n".format(color[0], color[1], color[2]) )
     else:
       fmtl.write("Kd 1.0 1.0 1.0\n")
