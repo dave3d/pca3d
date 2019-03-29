@@ -63,17 +63,17 @@ def transform_obj( obj, translate=[0.0,0.0,0.0], scale=[1.0,1.0,1.0], rotate=[0.
       result.append("v {0:.6g} {1:.6g} {2:.6g}\n".format(pt3[0], pt3[1], pt3[2]))
 
 
-    elif words[0] == 'mttlib':
+    elif words[0] == 'mtllib':
       if mtllib == "":
         # if the function as given no mtllib, let the file's mtllib pass through.
         # if the function was given a mtllib, the file's mtllib is omitted.
-        result.append(l)
+        result.append(l+'\n')
 
     elif words[0] == 'usemtl':
       if material == "":
         # if the function as given no material, let the file's material pass through.
         # if the function was given a material, the file's material is omitted.
-        result.append(l)
+        result.append(l+'\n')
 
     elif words[0] == 'vn':
       if len(rotate) == 4:
@@ -83,9 +83,9 @@ def transform_obj( obj, translate=[0.0,0.0,0.0], scale=[1.0,1.0,1.0], rotate=[0.
         n1 = rotate_vector(n, rotate)
         result.append("vn {0:.4g} {1:.4g} {2:.4g}\n".format(n1[0], n1[1], n1[2]))
       else:
-        result.append(l)
+        result.append(l+'\n')
     else:
-      result.append(l)
+      result.append(l+'\n')
 
   return result
 
