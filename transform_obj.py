@@ -70,7 +70,7 @@ def transform_obj( obj, translate=[0.0,0.0,0.0], scale=[1.0,1.0,1.0], rotate=[0.
         result.append(l)
 
     elif words[0] == 'usemtl':
-      if material = "":
+      if material == "":
         # if the function as given no material, let the file's material pass through.
         # if the function was given a material, the file's material is omitted.
         result.append(l)
