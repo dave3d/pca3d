@@ -1,5 +1,12 @@
 #! /usr/bin/env python
 
+#
+#  Dave's utility to add polar coordinate texture coordinates to a OBJ mesh.
+#
+#  I wrote it to add texture coordinates to a sphere model, but it'll actually
+#  do it to anything.
+#
+
 import math
 import cmath
 import sys, getopt
